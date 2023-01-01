@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -11,17 +12,15 @@ int main(int argc, char * argv[]) {
 	while ( std::getline(input_file, line) ) {
     std::set<char> A (line.begin(), line.begin() + line.size() / 2 );
     std::set<char> B (line.begin() + line.size() / 2, line.end() );
-    std::cout << "A: ";
-    for (std::set<char>::iterator it = A.begin(); it != A.end(); ++it) {
-      std::cout << *it << " ";
-    }
-    std::cout << "B: ";
-    for (std::set<char>::iterator it = B.begin(); it != B.end(); ++it) {
-      std::cout << *it << " ";
-    }
-    std::cout << std::endl;
+    std::set<char> I;
+    std::set_intersection(
+      A.begin(), A.end(),
+      B.begin(), B.end(),
+      std::inserter(I, I.begin())
+    );
+    std::cout << *I.begin() << std::endl;
 	}
 
 
-      	return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 } 
